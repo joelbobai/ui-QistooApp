@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EthiCash – Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1710;min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.device{width:402px;height:874px;background:#F9F6F0;border-radius:54px;box-shadow:0 0 0 2px #3a3a3a,0 0 0 6px #1a1a1a,0 30px 80px rgba(0,0,0,.6);position:relative;overflow:hidden;}
+.dynamic-island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:126px;height:37px;background:#000;border-radius:20px;z-index:101;}
+.home-indicator{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:rgba(0,0,0,.18);border-radius:3px;z-index:100;}
+.screen{position:absolute;inset:0;border-radius:54px;overflow:hidden;background:#F9F6F0;display:flex;flex-direction:column;}
+.scroll-area{flex:1;overflow-y:auto;padding-bottom:80px;}
+
+/* Header */
+.topbar{background:#fff;padding:56px 20px 14px;display:flex;align-items:center;justify-content:space-between;}
+.greeting-name{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:20px;color:#1C1C1E;}
+.greeting-sub{font-family:'Inter',sans-serif;font-size:13px;color:#9B9B9B;margin-top:2px;}
+.topbar-right{display:flex;gap:12px;align-items:center;}
+.icon-btn{background:none;border:none;cursor:pointer;color:#1C1C1E;position:relative;display:flex;}
+.notif-dot{position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#C9921A;border:1.5px solid #fff;}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#1A6B3C,#27AE60);display:flex;align-items:center;justify-content:center;}
+.avatar-text{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;color:#fff;}
+
+/* Wallet card */
+.wallet-card{margin:16px 16px 0;border-radius:20px;background:linear-gradient(135deg,#1A6B3C 0%,#27AE60 100%);padding:18px 20px;box-shadow:0 8px 24px rgba(26,107,60,.3);position:relative;overflow:hidden;height:180px;display:flex;flex-direction:column;justify-content:space-between;}
+.wc-label{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.7);}
+.wc-balance-row{display:flex;align-items:center;gap:10px;}
+.wc-balance{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:30px;color:#fff;letter-spacing:-.5px;}
+.wc-eye{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.7);display:flex;}
+.wc-footer{display:flex;justify-content:space-between;align-items:flex-end;}
+.wc-halal{display:flex;align-items:center;gap:6px;}
+.wc-halal-dot{width:6px;height:6px;border-radius:50%;background:#4CD964;}
+.wc-halal-text{font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.7);}
+.wc-account{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.6);text-align:right;}
+.wc-star-watermark{position:absolute;right:-20px;top:-20px;opacity:.08;}
+
+/* Quick actions */
+.section-pad{padding:16px 16px 0;}
+.quick-actions{display:flex;gap:8px;}
+.qa-pill{flex:1;height:52px;border-radius:12px;background:#fff;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.qa-label{font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#1C1C1E;}
+
+/* Section header */
+.sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.sec-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:17px;color:#1C1C1E;}
+.sec-link{font-family:'Inter',sans-serif;font-weight:500;font-size:13px;color:#C9921A;cursor:pointer;}
+
+/* Financing cards scroll */
+.fin-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:4px;}
+.fin-scroll::-webkit-scrollbar{display:none;}
+.fin-card{flex-shrink:0;width:200px;border-radius:16px;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.08);overflow:hidden;}
+.fin-card-header{height:80px;background:linear-gradient(135deg,#1A6B3C,#27AE60);position:relative;display:flex;align-items:flex-end;padding:10px 12px;}
+.fin-card-header.gold{background:linear-gradient(135deg,#C9921A,#F0C040);}
+.fin-card-header.blue{background:linear-gradient(135deg,#2980B9,#3498DB);}
+.fin-card-header.purple{background:linear-gradient(135deg,#8E44AD,#9B59B6);}
+.fin-card-badge{font-family:'Inter',sans-serif;font-weight:700;font-size:9px;color:#fff;background:rgba(255,255,255,.2);padding:2px 7px;border-radius:6px;}
+.fin-card-body{padding:12px;}
+.fin-card-name{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;color:#1C1C1E;margin-bottom:2px;}
+.fin-card-desc{font-family:'Inter',sans-serif;font-size:11px;color:#9B9B9B;margin-bottom:8px;}
+.fin-card-rate{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;color:#1A6B3C;}
+
+/* Active financing */
+.active-fin{background:#fff;border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:14px;border-left:4px solid #1A6B3C;}
+.af-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.af-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;color:#1C1C1E;}
+.af-badge{font-family:'Inter',sans-serif;font-weight:700;font-size:10px;color:#1A6B3C;background:#E8F5E9;padding:3px 8px;border-radius:8px;}
+.af-desc{font-family:'Inter',sans-serif;font-size:12px;color:#9B9B9B;margin-bottom:10px;}
+.progress-track{height:6px;border-radius:3px;background:#F2F2F2;overflow:hidden;margin-bottom:6px;}
+.progress-fill{height:100%;border-radius:3px;background:#27AE60;}
+.af-amounts{display:flex;justify-content:space-between;}
+.af-amount-text{font-family:'Inter',sans-serif;font-size:11px;color:#9B9B9B;}
+
+/* Bottom Nav */
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:72px;background:#fff;border-top:1px solid #F2F2F2;display:flex;align-items:center;border-radius:0 0 54px 54px;z-index:50;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;position:relative;padding-bottom:8px;}
+.nav-item.active::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:20px;height:3px;background:#27AE60;border-radius:0 0 3px 3px;}
+.nav-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;}
+</style>
+</head>
+<body>
+<div class="device">
+  <div class="dynamic-island"></div>
+  <div class="screen">
+    <div class="scroll-area">
+      <!-- Top bar -->
+      <div class="topbar">
+        <div>
+          <div class="greeting-name">Good morning, Ahmad 👋</div>
+          <div class="greeting-sub">Your finances are Shariah-compliant</div>
+        </div>
+        <div class="topbar-right">
+          <button class="icon-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            <div class="notif-dot"></div>
+          </button>
+          <div class="avatar"><span class="avatar-text">AM</span></div>
+        </div>
+      </div>
+
+      <!-- Wallet Card -->
+      <div class="wallet-card">
+        <div class="wc-star-watermark">
+          <svg id="wc-star" width="160" height="160" viewBox="0 0 160 160"></svg>
+        </div>
+        <div>
+          <div class="wc-label">Total Wallet Balance</div>
+          <div class="wc-balance-row">
+            <div class="wc-balance">₦ 245,800.00</div>
+            <button class="wc-eye">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="wc-footer">
+          <div class="wc-halal">
+            <div class="wc-halal-dot"></div>
+            <span class="wc-halal-text">100% Halal • Riba-free</span>
+          </div>
+          <div class="wc-account">
+            <div style="color:rgba(255,255,255,.5);font-size:10px;">Account</div>
+            <div style="color:#fff;font-size:12px;font-family:'Inter',sans-serif;font-weight:600;">**** 4821</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick actions -->
+      <div class="section-pad" style="margin-top:16px;">
+        <div class="quick-actions">
+          <button class="qa-pill">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span class="qa-label">Send</span>
+          </button>
+          <button class="qa-pill">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2" stroke-linecap="round"><polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"/></svg>
+            <span class="qa-label">Receive</span>
+          </button>
+          <button class="qa-pill">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9921A" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            <span class="qa-label">Pay</span>
+          </button>
+          <button class="qa-pill">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9921A" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 5 5 12"/></svg>
+            <span class="qa-label">Top Up</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Financing Products -->
+      <div class="section-pad" style="margin-top:20px;">
+        <div class="sec-header">
+          <span class="sec-title">Financing Products</span>
+          <span class="sec-link">See All</span>
+        </div>
+        <div class="fin-scroll">
+          <div class="fin-card">
+            <div class="fin-card-header">
+              <span class="fin-card-badge">★ FEATURED</span>
+            </div>
+            <div class="fin-card-body">
+              <div class="fin-card-name">Mudarabah</div>
+              <div class="fin-card-desc">Profit-sharing investment partnership</div>
+              <div class="fin-card-rate">Up to 25% ROI</div>
+            </div>
+          </div>
+          <div class="fin-card">
+            <div class="fin-card-header gold"></div>
+            <div class="fin-card-body">
+              <div class="fin-card-name">Murabaha</div>
+              <div class="fin-card-desc">Cost-plus trade financing</div>
+              <div class="fin-card-rate">12% markup</div>
+            </div>
+          </div>
+          <div class="fin-card">
+            <div class="fin-card-header blue"></div>
+            <div class="fin-card-body">
+              <div class="fin-card-name">Musharakah</div>
+              <div class="fin-card-desc">Joint venture partnership</div>
+              <div class="fin-card-rate">Shared profit</div>
+            </div>
+          </div>
+          <div class="fin-card">
+            <div class="fin-card-header purple"></div>
+            <div class="fin-card-body">
+              <div class="fin-card-name">Ijarah</div>
+              <div class="fin-card-desc">Asset leasing arrangement</div>
+              <div class="fin-card-rate">Fixed rental</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Financing -->
+      <div class="section-pad" style="margin-top:20px;">
+        <div class="sec-header">
+          <span class="sec-title">Active Financing</span>
+          <span class="sec-link">View All</span>
+        </div>
+        <div class="active-fin">
+          <div class="af-top">
+            <div class="af-title">Murabaha — Business Equipment</div>
+            <span class="af-badge">Active</span>
+          </div>
+          <div class="af-desc">Monthly repayment: ₦ 15,000 • Due Nov 5</div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width:65%;"></div>
+          </div>
+          <div class="af-amounts">
+            <span class="af-amount-text">₦ 97,500 paid</span>
+            <span class="af-amount-text">₦ 150,000 total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <button class="nav-item active">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="nav-label" style="color:#27AE60;">Home</span>
+      </button>
+      <button class="nav-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9B9B9B" stroke-width="2" stroke-linecap="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+        <span class="nav-label" style="color:#9B9B9B;">Finance</span>
+      </button>
+      <button class="nav-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9B9B9B" stroke-width="2" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        <span class="nav-label" style="color:#9B9B9B;">Invest</span>
+      </button>
+      <button class="nav-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9B9B9B" stroke-width="2" stroke-linecap="round"><path d="M12 2l8 4v6c0 5-3.5 9.5-8 11C7.5 21.5 4 17 4 12V6l8-4z"/></svg>
+        <span class="nav-label" style="color:#9B9B9B;">Takaful</span>
+      </button>
+      <button class="nav-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9B9B9B" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="nav-label" style="color:#9B9B9B;">Profile</span>
+      </button>
+    </div>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script>
+function drawStar(svgEl, size, color) {
+  const s=size/2,outerR=s*0.9,innerR=s*0.37;
+  const pts=Array.from({length:8},(_,i)=>{const o=(i*45-90)*Math.PI/180,inn=((i+0.5)*45-90)*Math.PI/180;return `${s+outerR*Math.cos(o)},${s+outerR*Math.sin(o)} ${s+innerR*Math.cos(inn)},${s+innerR*Math.sin(inn)}`;}).join(' ');
+  const oct=Array.from({length:8},(_,i)=>{const a=(i*45-22.5)*Math.PI/180;return `${s+s*0.4*Math.cos(a)},${s+s*0.4*Math.sin(a)}`;}).join(' ');
+  svgEl.innerHTML=`<circle cx="${s}" cy="${s}" r="${s*.94}" fill="none" stroke="${color}" stroke-width="0.6" stroke-opacity="0.25"/><polygon points="${pts}" fill="${color}" fill-opacity="0.15" stroke="${color}" stroke-width="1"/><polygon points="${oct}" fill="${color}" fill-opacity="0.22" stroke="${color}" stroke-width="0.8"/><circle cx="${s}" cy="${s}" r="${s*.16}" fill="${color}" fill-opacity="0.55"/><circle cx="${s}" cy="${s}" r="${s*.07}" fill="${color}"/>`;
+}
+drawStar(document.getElementById('wc-star'),160,'white');
+</script>
+</body>
+</html>
